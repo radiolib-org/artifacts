@@ -35,7 +35,9 @@ jobs:
 
       - name: Commit and push changes
         if: env.changes == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git add .
           git commit -m "Processed RadioLib CI L1 data [skip ci]"
-          git push
+          git push "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
