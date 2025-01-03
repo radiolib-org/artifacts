@@ -25,15 +25,16 @@ for csv_file in "$input_dir"/*.csv; do
     data="${components[1]}"
     bss="${components[2]}"
     filename="${components[-1]}"
+    time=$(git log --diff-filter=A --format=%ci -- "$csv_file")
     output_file="$output_dir/size_${filename}.csv"
 
     # Add header if the file does not exist
     if [[ ! -f "$output_file" ]]; then
-      echo "commit,platform,text,data,bss" >> $output_file
+      echo "time,commit,platform,text,data,bss" >> $output_file
     fi
 
     # Append
-    echo "${commit},${platform},${text},${data},${bss}" >> $output_file
+    echo "${time},${commit},${platform},${text},${data},${bss}" >> $output_file
 
   done
 
